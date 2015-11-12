@@ -1,6 +1,7 @@
 Template.postEdit.created = function() {
   Session.set('postEditErrors', {});
-}
+};
+
 Template.postEdit.helpers({
   errorMessage: function(field) {
     return Session.get('postEditErrors')[field];
@@ -19,7 +20,7 @@ Template.postEdit.events({
     var postProperties = {
       url: $(e.target).find('[name=url]').val(),
       title: $(e.target).find('[name=title]').val()
-    }
+    };
 
      var errors = validatePost(postProperties);
     if (errors.title || errors.url)
@@ -28,7 +29,7 @@ Template.postEdit.events({
     Posts.update(currentPostId, {$set: postProperties}, function(error) {
       if (error) {
         // display the error to the user
-        throwError(error.reason);
+        Errors.throwError(error.reason);
 
       } else {
         Router.go('postPage', {_id: currentPostId});
